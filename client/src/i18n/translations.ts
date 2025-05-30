@@ -431,6 +431,7 @@ export const translations: Record<SupportedLanguage, any> = {
       durationHelp: '5秒到2小时（7200秒）',
       remaining: '剩余',
       start: '开始',
+      resume: '恢复',
       pause: '暂停',
       stop: '停止',
       scheduleSession: '计划会话',
