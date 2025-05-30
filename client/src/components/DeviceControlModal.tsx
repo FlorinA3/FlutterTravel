@@ -217,7 +217,7 @@ export default function DeviceControlModal({
           <div className="grid grid-cols-3 gap-3">
             <Button
               onClick={isPaused ? handleResume : handleStart}
-              disabled={(!isPaused && isRunning) || !device.connected}
+              disabled={isRunning && !isPaused || !device.connected}
               className="bg-green-600 hover:bg-green-700 text-white control-button"
             >
               <div className="flex flex-col items-center space-y-1">
