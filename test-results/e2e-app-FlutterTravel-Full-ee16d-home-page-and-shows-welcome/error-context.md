@@ -6,11 +6,42 @@
 # Error details
 
 ```
-Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5000/
-Call log:
-  - navigating to "http://localhost:5000/", waiting until "load"
+Error: Timed out 10000ms waiting for expect(locator).toHaveTitle(expected)
 
-    at C:\Users\Alexx\Desktop\app\munca\FlutterTravel\e2e\app.test.ts:8:16
+Locator: locator(':root')
+Expected pattern: /FlutterTravel/i
+Received string:  "BLE Device Controller"
+Call log:
+  - expect.toHaveTitle with timeout 10000ms
+  - waiting for locator(':root')
+    12 × locator resolved to <html lang="en">…</html>
+       - unexpected value "BLE Device Controller"
+
+    at C:\Users\Alexx\Desktop\app\munca\FlutterTravel\e2e\app.test.ts:13:24
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications (F8)":
+  - list
+- banner:
+  - img "Device"
+  - heading "BLE Controller" [level=1]
+  - img
+  - text: 0/10
+  - button:
+    - img
+- navigation:
+  - button "Devices"
+  - button "Logs"
+  - button "Schedule"
+- main:
+  - button "Scan for Devices":
+    - img
+    - text: Scan for Devices
+  - img
+  - text: Add Device
 ```
 
 # Test source
@@ -23,13 +54,13 @@ Call log:
    5 | test.describe('FlutterTravel Full App E2E', () => {
    6 |
    7 |   test.beforeEach(async ({ page }) => {
->  8 |     await page.goto(BASE_URL);
-     |                ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5000/
+   8 |     await page.goto(BASE_URL);
    9 |   });
   10 |
   11 |   test('App loads home page and shows welcome', async ({ page }) => {
   12 |     // Wait longer for title (10s) to avoid flakiness
-  13 |     await expect(page).toHaveTitle(/FlutterTravel/i, { timeout: 10000 });
+> 13 |     await expect(page).toHaveTitle(/FlutterTravel/i, { timeout: 10000 });
+     |                        ^ Error: Timed out 10000ms waiting for expect(locator).toHaveTitle(expected)
   14 |     await expect(page.locator('text=Welcome')).toBeVisible({ timeout: 10000 });
   15 |   });
   16 |

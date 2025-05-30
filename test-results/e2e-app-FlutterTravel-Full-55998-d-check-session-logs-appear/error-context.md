@@ -6,11 +6,35 @@
 # Error details
 
 ```
-Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5000/
+TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
 Call log:
-  - navigating to "http://localhost:5000/", waiting until "load"
+  - waiting for locator('button#start-session') to be visible
 
-    at C:\Users\Alexx\Desktop\app\munca\FlutterTravel\e2e\app.test.ts:8:16
+    at C:\Users\Alexx\Desktop\app\munca\FlutterTravel\e2e\app.test.ts:19:48
+```
+
+# Page snapshot
+
+```yaml
+- region "Notifications (F8)":
+  - list
+- banner:
+  - img "Device"
+  - heading "BLE Controller" [level=1]
+  - img
+  - text: 0/10
+  - button:
+    - img
+- navigation:
+  - button "Devices"
+  - button "Logs"
+  - button "Schedule"
+- main:
+  - button "Scan for Devices":
+    - img
+    - text: Scan for Devices
+  - img
+  - text: Add Device
 ```
 
 # Test source
@@ -23,8 +47,7 @@ Call log:
    5 | test.describe('FlutterTravel Full App E2E', () => {
    6 |
    7 |   test.beforeEach(async ({ page }) => {
->  8 |     await page.goto(BASE_URL);
-     |                ^ Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:5000/
+   8 |     await page.goto(BASE_URL);
    9 |   });
   10 |
   11 |   test('App loads home page and shows welcome', async ({ page }) => {
@@ -35,7 +58,8 @@ Call log:
   16 |
   17 |   test('Start session, stop session and check session logs appear', async ({ page }) => {
   18 |     // Wait for button to be visible before clicking
-  19 |     await page.locator('button#start-session').waitFor({ state: 'visible', timeout: 10000 });
+> 19 |     await page.locator('button#start-session').waitFor({ state: 'visible', timeout: 10000 });
+     |                                                ^ TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
   20 |     await page.click('button#start-session');
   21 |     await expect(page.locator('text=Session started')).toBeVisible({ timeout: 10000 });
   22 |
