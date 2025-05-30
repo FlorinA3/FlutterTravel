@@ -80,6 +80,15 @@ export default function DeviceControlModal({
     }
   };
 
+  const handleResume = async () => {
+    try {
+      await sendCommand(device.id, 'start', { intensity, duration: remainingTime });
+      setIsPaused(false);
+    } catch (error) {
+      alert(t('errors.connectionFailed'));
+    }
+  };
+
   const handlePause = async () => {
     try {
       await sendCommand(device.id, 'pause');
@@ -207,13 +216,13 @@ export default function DeviceControlModal({
           {/* Control Buttons */}
           <div className="grid grid-cols-3 gap-3">
             <Button
-              onClick={handleStart}
-              disabled={isRunning || !device.connected}
+              onClick={isPaused ? handleResume : handleStart}
+              disabled={(!isPaused && isRunning) || !device.connected}
               className="bg-green-600 hover:bg-green-700 text-white control-button"
             >
               <div className="flex flex-col items-center space-y-1">
                 <Play className="w-4 h-4" />
-                <span className="text-xs">{t('control.start')}</span>
+                <span className="text-xs">{isPaused ? t('control.resume') : t('control.start')}</span>
               </div>
             </Button>
             <Button
