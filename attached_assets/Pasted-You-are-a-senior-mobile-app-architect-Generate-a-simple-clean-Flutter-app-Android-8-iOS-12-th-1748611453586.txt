@@ -1,0 +1,43 @@
+You are a senior mobile‑app architect. Generate a simple, clean Flutter app (Android 8+, iOS 12+) that runs entirely offline with minimal resource use:
+
+• Offline, Dark‑Theme‑Only  
+  – Use Flutter’s built‑in dark theme (`ThemeData.dark()`).  
+  – Bundle only 1–2 basic vector icons (e.g. device, start, stop) in `/assets/icons`. No online assets or heavy images.
+
+• Bluetooth LE Control (up to 10 devices)  
+  – Scan for and connect up to **10** BLE “disinfection” devices concurrently.  
+  – Display each device as a small tile in a scrollable grid. Use a green dot for “connected” and grey for “disconnected.”  
+  – Tap a tile to open its individual control view.
+
+• Device Control View  
+  – Intensity selector: four `TextButton`s labeled Low, Med, High, Max.  
+  – Timer input: a simple numeric `TextField` (5–7200 s) plus a live “mm:ss” label.  
+  – Three `ElevatedButton`s: Start, Pause, Stop—each shows an “Are you sure?” `AlertDialog` before action.  
+  – Implement the timer purely in Dart (no animation libraries). When it reaches zero → log “Success”; if stopped early → log “Stopped.”
+
+• Scheduling (Mandatory, Basic)  
+  – On the control view add one “Schedule” button.  
+  – Let the user pick date & time via `showDatePicker`/`showTimePicker`, choose intensity & duration.  
+  – Save schedules locally in a single SQLite table (using `sqflite`). No repeat patterns, no notifications—just persistent data.
+
+• Session Logging  
+  – Record every session in SQLite with fields: deviceId, intensity, duration, outcome, timestamp.  
+  – Add a “Logs” tab on the main screen showing the last 10 entries in a basic `ListView`.  
+  – Provide a “Clear All” button that clears the logs after user confirmation.
+
+• Permissions & Error Handling  
+  – Request Bluetooth & location permissions once at startup. If either is denied, show a simple `AlertDialog` prompting “Grant permissions.”  
+  – On any BLE error, show an `AlertDialog` saying “Connection failed – Retry?” with a Retry button.  
+  – Capture all exceptions in an in‑memory list and expose them via a hidden long‑press in the Settings screen.
+
+• Internationalization  
+  – Support English, Spanish, French, German, and Simplified Chinese via the `intl` package and `.arb` files.  
+  – Auto‑detect device locale on first run; allow manual override in Settings. Persist the choice in `SharedPreferences`.
+
+• Architecture & Output  
+  – Use only these dependencies: `flutter_blue`, `intl`, `sqflite`, `provider`, and `permission_handler`.  
+  – Keep everything in a single `main.dart` plus three screens (Devices, Logs, Settings) and minimal supporting files.  
+  – Aim for under ~500 lines of Dart code—no fancy UI packages or complex animations.  
+  – Provide a ready‑to‑run `pubspec.yaml`, placeholder icons in `/assets/icons`, `.arb` files, and all Dart code so it compiles and runs immediately in Replit.
+
+Ensure the app is ultra‑lightweight, uses only core Flutter widgets, and runs smoothly on any midrange phone without requiring special hardware. No stub code—every feature must work offline out of the box.

@@ -1,0 +1,60 @@
+You are a senior web‑app architect. Generate a **React PWA** (using Create React App or Vite) that runs entirely offline and works on modern mobile browsers (Android Chrome with Web Bluetooth, and simulation/fallback on iOS Safari):
+
+• Offline, Dark‑Theme‑Only  
+  – Use a fixed dark theme (CSS variables / Tailwind dark).  
+  – Bundle only 1–2 basic SVG icons (device, play, pause, stop) in `/public/icons`.  
+  – Generate a service worker for full offline support (caching JS, CSS, assets, and local data).
+
+• Web Bluetooth Control (up to 10 devices)  
+  – Scan/connect up to **10** BLE “disinfection” devices via the Web Bluetooth API.  
+  – Display each device as a small card in a responsive CSS grid. Green dot = connected, gray = disconnected.  
+  – Fallback simulation mode on unsupported browsers (iOS Safari) with dummy devices so the UI still functions.
+
+• Device Control View  
+  – Intensity selector: four HTML buttons (Low, Med, High, Max).  
+  – Timer input: a numeric `<input type="number" min="5" max="7200">` plus a live “mm:ss” display.  
+  – Three buttons: Start, Pause, Stop—each pops a browser `confirm("Are you sure?")` before action.  
+  – In real mode, use `navigator.bluetooth` to write GATT characteristic values; in simulation mode just countdown in JS.  
+  – On timer end → record “Success”; if stopped early → record “Stopped.”
+
+• Scheduling (Mandatory, Basic)  
+  – On the control screen include a “Schedule” button.  
+  – Use the browser’s built‑in `<input type="datetime-local">` plus intensity & duration inputs.  
+  – Persist schedules in IndexedDB (via idb library or Dexie), single table. No repeats, no notifications—just stored data.
+
+• Session Logging  
+  – Record each session in IndexedDB: deviceId, intensity, duration, outcome, timestamp.  
+  – Add a “Logs” tab showing the last 10 entries in a simple list.  
+  – “Clear All” button clears the store after `window.confirm()`.
+
+• Permissions & Error Handling  
+  – On first load request Bluetooth permission via Web Bluetooth API. If denied, show a styled `<Modal>`: “Bluetooth permission required.”  
+  – On connect errors show a styled modal: “Connection failed – Retry?” with Retry.  
+  – Capture all JS exceptions in an in‑memory array; expose via a hidden long‑press on the title bar to dump logs.
+
+• Internationalization  
+  – Use `react-intl` or `react-i18next` with JSON files for EN, ES, FR, DE, ZH.  
+  – Auto‑detect `navigator.language`; allow manual override in a “Settings” panel stored in `localStorage`.
+
+• Architecture & Output  
+  – Use only these dependencies: React, React Router, react-intl (or i18next), idb (or Dexie), and no UI framework beyond minimal CSS/Tailwind.  
+  – Project structure:  
+    ```
+    public/
+      index.html
+      icons/
+    src/
+      index.jsx
+      App.jsx
+      /components
+      /hooks
+      /i18n
+      /services
+      /pages
+      service-worker.js
+    package.json
+    ```
+  – Keep code under ~400 lines.  
+  – Provide complete, compile‑ready code so it runs immediately in Replit’s web environment (npm install + npm start).
+
+Ensure the PWA is ultra‑light, uses core web APIs only, and works smoothly on any midrange smartphone browser. No stub code—every feature must work offline in simulation mode and with real BLE on supported browsers.
