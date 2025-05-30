@@ -83,7 +83,9 @@ export default function DeviceControlModal({
   const handleResume = async () => {
     try {
       await sendCommand(device.id, 'start', { intensity, duration: remainingTime });
+      setIsRunning(true);
       setIsPaused(false);
+      console.log('Resumed - isRunning set to true, isPaused set to false');
     } catch (error) {
       alert(t('errors.connectionFailed'));
     }
@@ -93,6 +95,7 @@ export default function DeviceControlModal({
     try {
       await sendCommand(device.id, 'pause');
       setIsPaused(true);
+      console.log('Paused - isRunning:', isRunning, 'isPaused:', true);
     } catch (error) {
       alert(t('errors.connectionFailed'));
     }
