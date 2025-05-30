@@ -1,0 +1,28 @@
+{
+  "name": "BLE Device Controller",
+  "short_name": "BLE Controller",
+  "description": "Bluetooth Low Energy Device Controller - Offline PWA for disinfection device control",
+  "theme_color": "#0F172A",
+  "background_color": "#0F172A",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icons/device.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/device.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "productivity", "medical"],
+  "lang": "en",
+  "dir": "ltr"
+}
